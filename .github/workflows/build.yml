@@ -1,4 +1,4 @@
-name: CI
+name: Build
 
 on:
   push:
@@ -15,6 +15,7 @@ jobs:
           login-server: docker.pkg.github.com
           username: $GITHUB_ACTOR
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: |
-          make docker-image
+      - env:
+          GITHUB_ACTOR: ${ GITHUB_ACTOR }
+        run: |
           make docker-push
