@@ -10,12 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: azure/docker-login@v1
-        with:
-          login-server: docker.pkg.github.com
-          username: $GITHUB_ACTOR
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - env:
-          GITHUB_ACTOR: $GITHUB_ACTOR
-        run: |
-          make docker-push
+      - run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+      - run: |
+          REPOSITORY=${{ github.repository }} make docker-push
