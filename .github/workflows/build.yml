@@ -16,6 +16,6 @@ jobs:
           username: $GITHUB_ACTOR
           password: ${{ secrets.GITHUB_TOKEN }}
       - env:
-          GITHUB_ACTOR: ${ GITHUB_ACTOR }
+          GITHUB_ACTOR: $GITHUB_ACTOR
         run: |
           make docker-push
