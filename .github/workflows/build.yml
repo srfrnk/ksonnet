@@ -15,7 +15,7 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
       - name: Build image
         run: |
-          make docker-build
+          make docker-image
       - name: Push image
         run: |
           REPOSITORY=${{ github.repository }} make docker-push
