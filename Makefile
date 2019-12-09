@@ -54,6 +54,11 @@ docs:
 docker-image: Gopkg.lock
 	docker build -t ks:$(GIT_TAG) --build-arg LD_FLAGS="$(LD_FLAGS) -s -w" .
 
+docker-push: docker-image
+	docker login docker.pkg.github.com -u srfrnk -p $${{ secrets.GITHUB_TOKEN }}
+	docker tag ks:$(GIT_TAG) docker.pkg.github.com/srfrnk/ksonnet/ks:$(GIT_TAG)
+	docker push docker.pkg.github.com/srfrnk/ksonnet/ks:$(GIT_TAG)
+
 install:
 	$(GO) build -o $(GOPATH)/bin/ks $(GO_FLAGS) ./cmd/ks
 
